@@ -1,0 +1,99 @@
+
+background yes
+update_interval 3
+
+cpu_avg_samples 2
+net_avg_samples 2
+temperature_unit celsius
+if_up_strictness address
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+
+gap_x 1220
+gap_y 40
+minimum_size 350 950
+maximum_width 400
+
+own_window yes
+own_window_type dock
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_argb_visual yes
+own_window_colour 000000
+own_window_argb_value 0
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+
+border_inner_margin 0
+border_outer_margin 0
+alignment top_right
+
+
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+override_utf8_locale yes
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+uppercase no
+
+default_color FFFFFF
+color1 DDDDDD
+color2 AAAAAA
+color3 888888
+color4 666666
+color5 008744
+color6 ffa700
+color7 d62d20
+color8 edc951
+color9 ff7b7b
+color0 00a0b0
+
+lua_load ~/conky_grey.lua
+lua_draw_hook_post main
+
+own_window_transparent yes
+own_window_colour 000000
+TEXT
+${voffset 90}
+${goto 145}${color5}${font ubuntu:size=38}${time %e}${color7}${offset 2}${voffset -20}${font ubuntu:size=17}${time %b}
+${goto 215}${voffset -6}${color}${font ubuntu:size=12}${time %Y}${font}
+${goto 145}${color6}${font ubuntu:size=15}${time %A}
+
+
+
+${voffset 150}
+${goto 90}${font Ubuntu:size=12:style=bold}${color0}CPU${alignr}${cpugraph 10,100 666666 666666}
+${goto 90}${font Ubuntu:size=10:style=normal}${color1}${top name 1}${alignr}${top pid 1} ${top cpu 1}%
+${goto 90}${font Ubuntu:size=10:style=normal}${color2}${top name 2}${alignr}${top pid 2} ${top cpu 2}%
+${goto 90}${font Ubuntu:size=10:style=normal}${color3}${top name 3}${alignr}${top pid 3} ${top cpu 3}%
+${goto 90}${font Ubuntu:size=10:style=normal}${color}|${threads} processes| 
+${goto 90}${color8}Core 0: ${font Ubuntu:size=10:style=normal}${color9}${cpu cpu0}% (${exec sensors | grep "Core 0" | cut --bytes=14-21})
+${goto 90}${color8}Core 1: ${font Ubuntu:size=10:style=normal}${color9}${cpu cpu1}% (${exec sensors | grep "Core 1" | cut --bytes=14-21})
+${voffset 5}${goto 90}${font Ubuntu:size=12:style=bold}${color0}MEM
+${goto 90}${font Ubuntu:size=10:style=normal}${color1}${top_mem name 1}${alignr}${top_mem mem 1}%
+${goto 90}${font Ubuntu:size=10:style=normal}${color2}${top_mem name 2}${alignr}${top_mem mem 2}%
+${goto 90}${font Ubuntu:size=10:style=normal}${color3}${top_mem name 3}${alignr}${top_mem mem 3}%
+
+${voffset 5}${goto 90}${font Ubuntu:size=12:style=bold}${color0}NET
+${goto 90}${font Ubuntu:size=10:style=normal}${color2}Download: ${color}${downspeedf enp3s0}kB/s${alignr}${color2}Upload: ${color}${upspeedf enp3s0}kB/s
+
+${voffset 5}${goto 90}${font Ubuntu:size=12:style=bold}${color0}DISK${alignr}${diskiograph 20,100 666666 666666}
+${voffset -30}
+${goto 90}${font Ubuntu:size=10:style=normal}${color1}/root ${font Ubuntu:size=8:style=normal}${color}${alignr}${fs_used /} / ${color2}${fs_size /}
+${goto 90}${font Ubuntu:size=10:style=normal}${color1}/windows ${font Ubuntu:size=8:style=normal}${color}${alignr}${fs_used  /mnt/70EA9750EA971188} / ${color2}${fs_size  /mnt/70EA9750EA971188}
+${goto 90}${font Ubuntu:size=10:style=normal}${color1}/drive e ${font Ubuntu:size=8:style=normal}${color}${alignr}${fs_used  /mnt/77A95F5C3C5B27E4} / ${color2}${fs_size  /mnt/77A95F5C3C5B27E4}
+${goto 90}${font Ubuntu:size=10:style=normal}${color1}/wdc-sata2 ${font Ubuntu:size=8:style=normal}${color}${alignr}${fs_used  /media/yamakazi/wdc-sata2} / ${color2}${fs_size  /media/yamakazi/wdc-sata2}
+${voffset 5}
+${goto 90}${font Ubuntu:size=12:style=bold}${color0}Now on Clementine:
+
+${goto 90}${font Ubuntu:size=9:style=normal}${color2}Title  : ${color}${execi 5 python2 /home/yamakazi/anowplaying.py -t}
+
+${goto 90}${font Ubuntu:size=9:style=normal}${color2}Artist : ${color}${execi 5 python2 /home/yamakazi/anowplaying.py -a}
+
+${execi 5 python2 /home/yamakazi/anowplaying.py -c /tmp/cover.jpg}${image /tmp/cover.jpg -p 280,790 -s 70x70 -n}
+
